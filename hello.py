@@ -61,7 +61,6 @@ print(solution2('abcdefghijklmn.p'))
 # import re
 # from string import punctuation
 # #"...!@BaT#*..y.abcdefghijklm"
-
 # new_id = "...!@BaT#*..y.abcdefghijklm"
 # empty_id = ""
 # # new_string = re.sub(r"[^a-zA-Z0-9]","",new_id)
