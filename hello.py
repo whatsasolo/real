@@ -5,11 +5,11 @@ def solution(new_id):   #최소시간:0.07ms 최대시간:0.21ms 최소용량:12
     symbols = punctuation.replace('-','').replace('_','').replace('.','')
     answer = copy(new_id.casefold())
     for i in range(0,2):
-        
         for symbol in symbols:
             answer = answer.replace(symbol,'')
-        p = re.compile('[.]{2,}')
+        p = re.compile('\.+')
         m = p.findall(new_id)
+        print(m)
         for i in range(0, len(m)):
             answer = answer.replace(m[i],'.')
         answer = answer.strip('.')
