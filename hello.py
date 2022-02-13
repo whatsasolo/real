@@ -5,27 +5,25 @@ import re
 from string import punctuation
 def solution(new_id):   #최소시간:0.07ms 최대시간:0.21ms 최소용량:12.2MB 최대용량:12.4MB 정확도:92.3
     symbols = punctuation.replace('-','').replace('_','').replace('.','')
-    new_id = new_id.casefold()
-    if new_id:
-        for symbol in symbols:
-            new_id = new_id.replace(symbol,'')
-        p = re.compile('[.]{2,}')
-        m = p.findall(new_id)
-        for i in range(0, len(m)):
-            new_id = new_id.replace(m[i],'.')
-        new_id = new_id.strip('.')
-        if len(new_id) >= 16:
-            new_id = new_id[0:15]
-        elif len(new_id) == 0:
-            new_id = 'aaa'
-        else:
-            while len(new_id) <= 2:
-                new_id = new_id + new_id[-1]
-        new_id = new_id.strip('.')
-    else:
-        new_id = 'aaa'
-    answer = new_id
+    answer = copy(new_id.casefold())
+
+    for symbol in symbols:
+        answer = answer.replace(symbol,'')
+    p = re.compile('[.]{2,}')
+    m = p.findall(new_id)
+    for i in range(0, len(m)):
+        answer = answer.replace(m[i],'.')
+    answer = answer.strip('.')
+    if not answer:
+        answer = 'a'
+    elif len(answer) >= 16:
+        answer = answer[0:15]
+        answer = answer.strip('.')
+    if len(answer) <= 2:
+        while len(answer) <= 2:
+            answer = answer + answer[-1]
     return answer
+
 def solution2(new_id):
     if not new_id:
         answer = 'a'
@@ -55,8 +53,8 @@ def solution2(new_id):
             break
         answer =  result
     return answer
-# print(solution('abcdefghijklmn.p'))
-print(solution2('abcdefghijklmn.p'))
+print(solution('abcdefghijklmn.p'))
+# print(solution2('abcdefghijklmn.p'))
 # from concurrent.futures.process import _ExceptionWithTraceback
 # import re
 # from string import punctuation
