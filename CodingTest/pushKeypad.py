@@ -1,34 +1,34 @@
 def solution(numbers, hand):
     keypad = [[1, 4, 7, '*'],[2, 5, 8, 0],[3, 6, 9, '#']]
     answer = []
-    leftHand = [0, 3]
-    rightHand = [2, 3]
+    leftHand = [0, 3]                   #초기 왼손 위치
+    rightHand = [2, 3]                  #초기 오른손 위치
     for number in numbers:
         for column in range(0, 3):
-            if number in keypad[column] and column == 0:
+            if number in keypad[column] and column == 0:            #왼쪽줄   
                 answer.append('L')
-                leftHand = [keypad[column].index(number), column]
+                leftHand = [keypad[column].index(number), column]       #왼손 위치 변경
                 # print(leftHand)
                 print('number = ' , number)                 # == 1,1
                 print('leftHand = ' , leftHand)             # == 1,0
                 print('rightHand = ' , rightHand)           # == 0,2
-            elif number in keypad[column] and column == 2:
-                rightHand = [keypad[column].index(number), column]
+            elif number in keypad[column] and column == 2:              #오른쪽줄
                 answer.append('R')
+                rightHand = [keypad[column].index(number), column]      #오른손 위치 변경
                 # print(rightHand)
                 print('number = ' , number)                 # == 1,1
                 print('leftHand = ' , leftHand)             # == 1,0
-                print('rightHand = ' , rightHand)           # == 0,2
-            elif number in keypad[column] and column == 1:
+                print('rightHand = ' , rightHand)           # == 0,2 
+            elif number in keypad[column] and column == 1:                  #가운데 줄
                 # keypad[column][keypad[column].index(number)]      # == keypad[1,1]
-                if (leftHand[0] - column) + (leftHand[1] - keypad[column].index(number)) < (rightHand[0] - column) + (rightHand[1] - keypad[column].index(number)):
+                if abs((leftHand[0] - column)) + abs((leftHand[1] - keypad[column].index(number))) < abs((rightHand[0] - column)) + abs((rightHand[1] - keypad[column].index(number))):
                     leftHand = [keypad[column].index(number), column]           #왼손 옮기기
                     answer.append('L')
-                elif (leftHand[0] - column) + (leftHand[1] - keypad[column].index(number)) == (rightHand[0] - column) + (rightHand[1] - keypad[column].index(number)):  #중립구간
-                    if hand == 'right':
+                elif abs((leftHand[0] - column)) + abs((leftHand[1] - keypad[column].index(number))) == abs((rightHand[0] - column)) + abs((rightHand[1] - keypad[column].index(number))):  #중립구간
+                    if hand == 'right':                     #오른손잡이
                         rightHand = [keypad[column].index(number), column]
                         answer.append('R')
-                    else:
+                    else:                                   #왼손잡이
                         leftHand = [keypad[column].index(number), column]
                         answer.append('L')
                 else:                                            #오른손 옮기기
@@ -45,3 +45,5 @@ keypad[0].pop()
 # print(keypad)
 # print(keypad[0].index(1))
 #"LRLLLRLLRRL"
+#['L', 'R', 'L', 'L', 'R', 'L', 'L', 'L', 'L', 'R', 'L']    
+#['L', 'R', 'L', 'R', 'R', 'L', 'L', 'L', 'R', 'R', 'L']    #abs 적용
